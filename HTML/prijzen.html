@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prijzen | CellCity Rosmalen</title>
+    <meta name="description" content="Bekijk richtprijzen voor reparaties en services bij CellCity Rosmalen." />
+
+    <!-- JOUW PAD: HTML/ -> css/ -->
+    <link rel="stylesheet" href="../css/style.css" />
+</head>
+<script src="../javascript/main.js"></script>
+<script src="../javascript/prijzen-data.js"></script>
+<script src="../javascript/catalogus.js"></script>
+
+<body>
+<header class="site-header">
+    <div class="container header-inner">
+        <a class="brand" href="index.html" aria-label="CellCity Rosmalen home">
+            <!-- JOUW PAD: HTML/ -> Pictures/ -->
+            <img src="../Pictures/logo.png" alt="CellCity" class="logo" />
+        </a>
+
+        <nav class="nav" aria-label="Hoofdmenu">
+            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link active" href="prijzen.html">Prijzen</a>
+            <a class="nav-link" href="contact.html">Contact</a>
+        </nav>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Menu openen/sluiten" aria-expanded="false">
+            ☰
+        </button>
+    </div>
+</header>
+
+<main>
+    <section class="page-hero">
+        <div class="container">
+            <h1>Prijzen & reparaties</h1>
+            <p class="lead">
+                Richtprijzen — exacte prijs hangt af van merk/model.
+                App of bel met je toestel + probleem voor de exacte prijs.
+            </p>
+
+            <div class="filters card">
+                <div class="filters-row">
+                    <label>
+                        Zoeken
+                        <input id="q" placeholder="bv. iPhone 12, batterij, Samsung..." />
+                    </label>
+
+
+                    <label>
+                        Type
+                        <select id="typeFilter"></select>
+                    </label>
+
+                    <label>
+                        Merk
+                        <label>Merk <select id="brandFilter"></select></label>
+                    </label>
+                </div>
+                <p class="muted small">
+                    Tip: gebruik zoeken + filters om snel je toestel te vinden.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="table-wrap card">
+                <table class="price-table" id="catalogusTable">
+                    <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Merk</th>
+                        <th>Model</th>
+                        <th>Service</th>
+                        <th>Prijs</th>
+                        <th>Info</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Wordt gevuld door javascript/catalogus.js -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="notice">
+                <strong>Disclaimer:</strong> Dit zijn richtprijzen. Bij afwijkingen nemen we altijd eerst contact op.
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt">
+        <div class="container contact-grid">
+            <div>
+                <h2>Contact</h2>
+                <p class="lead">Snel weten wat jouw reparatie kost? Stuur je merk + model + probleem.</p>
+
+                <div class="contact-cards">
+                    <div class="mini-card">
+                        <div class="mini-title">Telefoon / WhatsApp</div>
+                        <div class="mini-value"><a href="tel:+31600000000">+31 6 00000000</a></div>
+                        <div class="mini-hint">Vervang dit door je echte nummer</div>
+                    </div>
+
+                    <div class="mini-card">
+                        <div class="mini-title">E-mail</div>
+                        <div class="mini-value"><a href="mailto:info@cellcityrosmalen.nl">info@cellcityrosmalen.nl</a></div>
+                    </div>
+
+                    <div class="mini-card">
+                        <div class="mini-title">Adres</div>
+                        <div class="mini-value">Rosmalen, NL</div>
+                        <div class="mini-hint">Vul straat + huisnummer in</div>
+                    </div>
+
+                    <div class="mini-card">
+                        <div class="mini-title">Openingstijden</div>
+                        <div class="mini-value">Ma–Za: 10:00–18:00</div>
+                        <div class="mini-hint">Pas aan naar jouw tijden</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Wat heb je nodig voor een prijs?</h3>
+                <ul class="checklist">
+                    <li>Merk + model (bv. iPhone 12, Samsung A52)</li>
+                    <li>Wat is er kapot? (scherm/batterij/laadpoort)</li>
+                    <li>Werkt het toestel nog? (aan/uit, beeld, opladen)</li>
+                    <li>Eventuele extra’s (protectors, hoesje, kabel)</li>
+                </ul>
+                <a class="btn primary" href="contact.html">Bericht sturen</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-left">
+            <strong>CellCity Rosmalen</strong>
+            <div class="muted small">Prijzen • Reparaties • Service</div>
+        </div>
+        <div class="footer-right muted small">
+            © <span id="year"></span> CellCity Rosmalen
+        </div>
+    </div>
+</footer>
+
+<!-- JOUW PAD: HTML/ -> javascript/ -->
+<script src="../javascript/main.js"></script>
+<script src="../javascript/catalogus.js"></script>
+</body>
+</html>
