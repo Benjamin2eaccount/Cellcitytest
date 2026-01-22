@@ -3,125 +3,233 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Contact — CellCity Rosmalen</title>
-    <meta name="description" content="Contactgegevens, openingstijden en locatie van CellCity Rosmalen." />
-    <link rel="stylesheet" href="style.css">
+    <title>Contact | CellCity Rosmalen</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
+<body>
 <header class="site-header">
     <div class="container header-inner">
-        <a class="brand" href="index.html" aria-label="CellCity Rosmalen">
-            <img src="Pictures/logo.png" alt="CellCity" class="logo" />
+        <a class="brand" href="index.html">
+            <span class="logo-wrap"><img src="Pictures/logo.png" class="logo" alt="CellCity"></span>
         </a>
 
-        <button class="nav-toggle" type="button" aria-label="Menu openen" aria-expanded="false" data-nav-toggle>
-            <span></span><span></span><span></span>
-        </button>
-
-        <nav class="nav" data-nav>
+        <nav class="nav">
             <a class="nav-link" href="index.html">Home</a>
             <a class="nav-link" href="prijzen.html">Prijzen</a>
+            <a class="nav-link" href="pakketdiensten.html">Pakketdiensten</a>
+            <a class="nav-link" href="producten.html">Producten</a>
             <a class="nav-link active" href="contact.html">Contact</a>
         </nav>
+
+        <button class="nav-toggle" id="navToggle">☰</button>
     </div>
 </header>
 
-<main class="section">
-    <div class="container">
-        <div class="section-head">
+<main>
+    <section class="page-hero">
+        <div class="container">
             <h1>Contact</h1>
-            <p>Bel, mail of kom langs. We helpen je snel verder.</p>
+            <p class="lead">Stuur je merk + model + probleem, dan helpen we je snel.</p>
         </div>
+    </section>
 
-        <div class="grid-2">
-            <section class="card">
-                <h2 class="h2">Gegevens</h2>
+    <section class="section">
+        <div class="container contact-grid">
 
-                <div class="info-list">
-                    <div class="info-row">
-                        <div class="info-label">Telefoon</div>
-                        <div class="info-value"><a href="tel:0737850281">073 785 0281</a></div>
+            <!-- LINKS -->
+            <div>
+                <h2>Gegevens</h2>
+
+                <div class="contact-cards">
+                    <div class="mini-card">
+                        <div class="mini-title">Telefoon / WhatsApp</div>
+                        <div class="mini-value"><a href="tel:+31600000000">+31 6 00000000</a></div>
+                        <div class="mini-hint">Vervang dit door je echte nummer</div>
                     </div>
-                    <div class="info-row">
-                        <div class="info-label">E-mail</div>
-                        <div class="info-value"><a href="mailto:cellcityrosmalen@gmail.com">cellcityrosmalen@gmail.com</a></div>
+
+                    <div class="mini-card">
+                        <div class="mini-title">E-mail</div>
+                        <div class="mini-value"><a href="mailto:info@cellcityrosmalen.nl">info@cellcityrosmalen.nl</a></div>
                     </div>
-                    <div class="info-row">
-                        <div class="info-label">Adres</div>
-                        <div class="info-value">
-                            Het Frontier 163<br />
-                            5245 ED Rosmalen
-                        </div>
+
+                    <div class="mini-card">
+                        <div class="mini-title">Adres</div>
+                        <div class="mini-value">Het Frontier 163</div>
+                        <div class="mini-hint">5245 ED Rosmalen</div>
+                    </div>
+
+                    <div class="mini-card">
+                        <div class="mini-title">Pasfoto’s</div>
+                        <div class="mini-value">Papieren pasfoto’s</div>
+                        <div class="mini-hint">Geen digitale bestanden — je krijgt fysieke foto’s mee.</div>
                     </div>
                 </div>
 
-                <div class="btn-row">
-                    <a class="btn primary" href="tel:0737850281">Bel nu</a>
-                    <a class="btn ghost" href="mailto:cellcityrosmalen@gmail.com">Mail ons</a>
-                </div>
+                <!-- SOCIALS -->
+                <div class="card" style="margin-top:16px;">
+                    <h3>Volg ons</h3>
+                    <p class="lead" style="font-size:1rem;">Nieuws, acties en nieuwe producten.</p>
 
-                <div class="map-note">
-                    Navigatie: zoek in Google Maps op <b>Het Frontier 163, Rosmalen</b>.
-                </div>
-            </section>
+                    <div class="social-row">
+                        <a class="social-btn" target="_blank" rel="noopener"
+                           href="https://www.instagram.com/cellcityrosmalen/">
+                            <img class="social-icon" src="Pictures/instagram_logo.png" alt="Instagram">
+                            <div class="social-label">
+                                <strong>Instagram</strong>
+                                <span>@cellcityrosmalen</span>
+                            </div>
+                        </a>
 
-            <section class="card">
-                <h2 class="h2">Openingstijden</h2>
-                <div class="hours">
-                    <div class="hours-row"><span>Maandag</span><span>13:00 – 18:00</span></div>
-                    <div class="hours-row"><span>Dinsdag</span><span>09:30 – 18:00</span></div>
-                    <div class="hours-row"><span>Woensdag</span><span>09:30 – 18:00</span></div>
-                    <div class="hours-row"><span>Donderdag</span><span>09:30 – 18:00</span></div>
-                    <div class="hours-row"><span>Vrijdag</span><span>09:30 – 20:00</span></div>
-                    <div class="hours-row"><span>Zaterdag</span><span>09:30 – 17:00</span></div>
-                    <div class="hours-row closed"><span>Zondag</span><span>Gesloten</span></div>
-                </div>
+                        <a class="social-btn" target="_blank" rel="noopener"
+                           href="https://www.facebook.com/cellcitydenbosch/?locale=nl_NL">
+                            <img class="social-icon" src="Pictures/facebook_logo.png" alt="Facebook">
+                            <div class="social-label">
+                                <strong>Facebook</strong>
+                                <span>CellCity</span>
+                            </div>
+                        </a>
+                    </div>
 
-                <div class="note" style="margin-top:14px;">
-                    Tip: stuur je toestelmodel + wat er kapot is, dan kunnen we meteen een prijs geven.
+                    <div class="notice" style="margin-top:14px;">
+                        <strong>Tip:</strong> Voor een snelle prijs: stuur merk + model + wat er kapot is.
+                    </div>
                 </div>
-            </section>
+            </div>
+
+            <!-- RECHTS -->
+            <form class="form card" id="contactForm">
+                <h3>Bericht sturen</h3>
+
+                <label>
+                    Naam
+                    <input name="naam" required placeholder="Jouw naam" />
+                </label>
+
+                <label>
+                    Telefoon / e-mail
+                    <input name="contact" required placeholder="06… of mailadres" />
+                </label>
+
+                <label>
+                    Merk & model
+                    <input name="model" placeholder="Bijv. iPhone 12 / Samsung A52" />
+                </label>
+
+                <label>
+                    Wat is er kapot?
+                    <textarea name="bericht" required rows="5" placeholder="Scherm / batterij / laadpoort / etc."></textarea>
+                </label>
+
+                <buttons>
+                    <button class="btn primary" type="submit">Versturen</button>
+                    </Rds>
+                    <p class="muted small">Demo-formulier (kan ik later koppelen aan e-mail/WhatsApp).</p>
+            </form>
+
         </div>
-    </div>
+    </section>
 </main>
 
-<footer class="site-footer">
-    <div class="container footer-grid">
-        <div>
-            <div class="footer-brand">CellCity Rosmalen</div>
-            <p class="muted">Telefoonreparaties, accessoires en hulp — snel en netjes geregeld.</p>
-        </div>
+<footer class="mega-footer">
 
-        <div>
-            <div class="footer-title">Contact</div>
-            <ul class="footer-list">
-                <li><span class="muted">Telefoon:</span> <a href="tel:0737850281">073 785 0281</a></li>
-                <li><span class="muted">E-mail:</span> <a href="mailto:cellcityrosmalen@gmail.com">cellcityrosmalen@gmail.com</a></li>
-                <li><span class="muted">Adres:</span> Het Frontier 163, 5245 ED Rosmalen</li>
-            </ul>
-        </div>
 
-        <div>
-            <div class="footer-title">Openingstijden</div>
-            <ul class="footer-list">
-                <li><span class="muted">Ma:</span> 13:00 – 18:00</li>
-                <li><span class="muted">Di:</span> 09:30 – 18:00</li>
-                <li><span class="muted">Wo:</span> 09:30 – 18:00</li>
-                <li><span class="muted">Do:</span> 09:30 – 18:00</li>
-                <li><span class="muted">Vr:</span> 09:30 – 20:00</li>
-                <li><span class="muted">Za:</span> 09:30 – 17:00</li>
-                <li><span class="muted">Zo:</span> Gesloten</li>
-            </ul>
+
+    <div class="mega-footer-main">
+        <div class="container">
+            <div class="mega-grid">
+
+                <div class="mega-col">
+                    <h4>CellCity Rosmalen</h4>
+                    <p class="mega-note">
+                        Snelle reparaties voor telefoons, iPads/tablets en hulp met data/instellingen.
+                        Ook accessoires, screenprotectors, pakketdiensten en pasfoto’s (papieren).
+                    </p>
+                </div>
+
+                <div class="mega-col">
+                    <h4>Services</h4>
+                    <ul class="mega-links">
+                        <li><a href="prijzen.html">Scherm vervangen</a></li>
+                        <li><a href="prijzen.html">Batterij vervangen</a></li>
+                        <li><a href="prijzen.html">Laadpoort reparatie</a></li>
+                        <li><a href="prijzen.html">Data overzetten</a></li>
+                        <li><a href="producten.html">Screenprotectors</a></li>
+                    </ul>
+                </div>
+
+                <div class="mega-col">
+                    <h4>Pakketdiensten</h4>
+                    <ul class="mega-links">
+                        <li><a href="pakketdiensten.html">DHL</a></li>
+                        <li><a href="pakketdiensten.html">DHL Express</a></li>
+                        <li><a href="pakketdiensten.html">Mondial Relay</a></li>
+                        <li><a href="pakketdiensten.html">DPD</a></li>
+                        <li><a href="pakketdiensten.html">Vinted Go / Homerr</a></li>
+                    </ul>
+                </div>
+
+                <div class="mega-col">
+                    <h4>Info</h4>
+                    <ul class="mega-links">
+                        <li><a href="contact.html">Contact & adres</a></li>
+                        <li><a href="producten.html">Producten van de week</a></li>
+                        <li><a href="contact.html">Openingstijden</a></li>
+                        <li><a target="_blank" rel="noopener" href="https://search.google.com/local/writereview">Review achterlaten</a></li>
+                    </ul>
+                </div>
+
+                <div class="mega-col">
+                    <h4>Contact</h4>
+                    <ul class="mega-links">
+                        <li><a href="tel:+31600000000">+31 6 00000000</a></li>
+                        <li><a href="mailto:info@cellcityrosmalen.nl">info@cellcityrosmalen.nl</a></li>
+                        <li><a href="contact.html">Het Frontier 163, Rosmalen</a></li>
+                        <li class="muted small">Pasfoto’s: alleen papieren</li>
+                    </ul>
+
+                    <div style="margin-top:14px;" class="footer-social">
+                        <a target="_blank" rel="noopener" href="https://www.instagram.com/cellcityrosmalen/" aria-label="Instagram">
+                            <img src="Pictures/instagram_logo.png" alt="Instagram">
+                        </a>
+                        <a target="_blank" rel="noopener" href="https://www.facebook.com/cellcitydenbosch/?locale=nl_NL" aria-label="Facebook">
+                            <img src="Pictures/facebook_logo.png" alt="Facebook">
+                        </a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
-    <div class="container footer-bottom">
-        <div class="muted">© <span data-year></span> CellCity Rosmalen</div>
-        <div class="muted">Website gemaakt door Benjamin van Hemert</div>
+    <div class="mega-footer-bottom">
+        <div class="container">
+            <div class="bottom-row">
+                <div class="bottom-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Voorwaarden</a>
+                    <a href="#">Disclaimer</a>
+                    <a href="#">Toegankelijkheid</a>
+                </div>
+                <div class="muted small">© <span id="year"></span> CellCity Rosmalen</div>
+            </div>
+        </div>
     </div>
+
 </footer>
 
+
 <script src="main.js"></script>
+<script>
+    const form = document.getElementById("contactForm");
+    if(form){
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault();
+            alert("Thanks! (demo) — later koppelen we dit aan mail/WhatsApp.");
+            form.reset();
+        });
+    }
+</script>
 </body>
 </html>
