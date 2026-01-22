@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Prijzen | CellCity Rosmalen</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="Pictures/Main_cellcity_logo.png">
+
 </head>
 
 <body>
@@ -14,11 +16,12 @@
       <span class="logo-wrap">
         <img src="Pictures/logo.png" alt="CellCity" class="logo" />
       </span>
+            <span class="brand-text">CellCity</span>
         </a>
 
         <nav class="nav">
             <a class="nav-link" href="index.html">Home</a>
-            <a class="nav-link active" href="prijzen.html">Prijzen</a>
+            <a class="nav-link" href="prijzen.html">Prijzen</a>
             <a class="nav-link" href="pakketdiensten.html">Pakketdiensten</a>
             <a class="nav-link" href="producten.html">Producten</a>
             <a class="nav-link" href="contact.html">Contact</a>
@@ -68,13 +71,11 @@
                         <strong>Modellen</strong>
                         <button class="btn small" id="closeModelsBtn" type="button">Sluiten</button>
                     </div>
-                    <div class="muted small" style="margin-top:6px;">
-                        Kies een model om reparaties te bekijken.
-                    </div>
+                    <div class="muted small mt-12">Kies een model om reparaties te bekijken.</div>
                     <div class="model-grid" id="modelGrid"></div>
                 </div>
 
-                <p class="muted small" style="margin-top:12px;">
+                <p class="muted small mt-12">
                     Disclaimer: richtprijzen. Exacte prijs hangt af van merk/model en onderdeel.
                 </p>
             </div>
@@ -84,16 +85,15 @@
     <section class="section">
         <div class="container prijzen-layout">
 
-            <!-- LEFT -->
             <div>
                 <div class="card" id="pickHint">
                     <h3>Start hierboven</h3>
-                    <p class="lead" style="font-size:1rem;margin:0;">
+                    <p class="lead" style="margin:0;">
                         Kies Type → Merk → Model om de reparaties te zien.
                     </p>
                 </div>
 
-                <div class="table-wrap card hidden" id="resultWrap">
+                <div class="table-wrap card hidden mt-16" id="resultWrap">
                     <table class="price-table" id="catalogusTable">
                         <thead>
                         <tr>
@@ -110,7 +110,7 @@
                     </table>
                 </div>
 
-                <div class="cards" style="margin-top:16px;">
+                <div class="cards mt-16">
                     <div class="card">
                         <h3>Screenprotectors</h3>
                         <ul class="checklist">
@@ -122,7 +122,7 @@
 
                     <div class="card">
                         <h3>Review ⭐</h3>
-                        <p class="lead" style="font-size:1rem;">Tevreden? Laat een review achter.</p>
+                        <p class="lead">Tevreden? Laat een review achter.</p>
                         <a class="btn primary" target="_blank" rel="noopener" href="https://search.google.com/local/writereview">
                             Review achterlaten
                         </a>
@@ -130,13 +130,12 @@
 
                     <div class="card">
                         <h3>Contact</h3>
-                        <p class="lead" style="font-size:1rem;">Twijfel je? Stuur merk + model + probleem.</p>
+                        <p class="lead">Twijfel je? Stuur merk + model + probleem.</p>
                         <a class="btn" href="contact.html">Naar contact</a>
                     </div>
                 </div>
             </div>
 
-            <!-- RIGHT: CART -->
             <aside class="cart-side">
                 <div class="card">
                     <div class="cart-title">
@@ -147,18 +146,18 @@
                         <button class="btn small" id="clearCartBtn" type="button">Leegmaken</button>
                     </div>
 
-                    <div id="cartEmpty" class="muted small" style="margin-top:12px;">
+                    <div id="cartEmpty" class="muted small mt-12">
                         Nog niks toegevoegd. Kies eerst een model en klik op “Toevoegen”.
                     </div>
 
                     <div class="cart-items" id="cartItems"></div>
 
                     <div class="cart-actions">
-                        <a class="btn primary" id="emailCartBtn" href="#">E-mail aanvraag</a>
+                        <a class="btn primary" id="emailCartBtn" href="#" aria-disabled="true">E-mail aanvraag</a>
                         <a class="btn" href="contact.html">Contact</a>
                     </div>
 
-                    <p class="muted small" style="margin-top:10px;">
+                    <p class="muted small mt-12">
                         Je mail bevat automatisch jouw gekozen reparaties.
                     </p>
                 </div>
@@ -168,10 +167,8 @@
     </section>
 </main>
 
+<!-- footer exact zoals jij hem wilde -->
 <footer class="mega-footer">
-
-
-
     <div class="mega-footer-main">
         <div class="container">
             <div class="mega-grid">
@@ -246,14 +243,12 @@
                     <a href="#">Privacy</a>
                     <a href="#">Cookies</a>
                     <a href="#">Voorwaarden</a>
-                    <a href="#">Disclaimer</a>
                     <a href="#">Toegankelijkheid</a>
                 </div>
                 <div class="muted small">© <span id="year"></span> CellCity Rosmalen</div>
             </div>
         </div>
     </div>
-
 </footer>
 
 <script src="main.js"></script>

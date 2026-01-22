@@ -1,264 +1,283 @@
-function euro(n) {
-    return new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR" }).format(n);
-}
-function calcPrice(base, multiplier = 1) {
-    return Math.round(base * multiplier);
-}
+(() => {
+    const euro = (n) =>
+        new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR" }).format(n);
 
-const CART = [];
+    const calcPrice = (base, multiplier = 1) => Math.round(base * multiplier);
 
-function addToCart(item){
-    CART.push(item);
-    renderCart();
-}
-function removeFromCart(idx){
-    CART.splice(idx, 1);
-    renderCart();
-}
-function clearCart(){
-    CART.length = 0;
-    renderCart();
-}
+    const CART = [];
 
-function buildMailto(){
-    const to = "info@cellcityrosmalen.nl";
-    const subject = "Reparatie aanvraag (CellCity Rosmalen)";
-    const lines = [];
+    const els = () => ({
+        typeSel: document.getElementById("typeFilter"),
+        brandSel: document.getElementById("brandFilter"),
+        modelSel: document.getElementById("modelFilter"),
+        tbody: document.querySelector("#catalogusTable tbody"),
 
-    lines.push("Hallo CellCity,");
-    lines.push("");
-    lines.push("Ik wil graag een reparatie aanvragen:");
-    lines.push("");
+        pickHint: document.getElementById("pickHint"),
+        resultWrap: document.getElementById("resultWrap"),
 
-    CART.forEach((it, i) => {
-        lines.push(`${i+1}. ${it.brand} ${it.model} — ${it.service} (richtprijs ${euro(it.price)})`);
+        showModelsBtn: document.getElementById("showModelsBtn"),
+        modelPanel: document.getElementById("modelPanel"),
+        modelGrid: document.getElementById("modelGrid"),
+        closeModelsBtn: document.getElementById("closeModelsBtn"),
+
+        cartItems: document.getElementById("cartItems"),
+        cartCount: document.getElementById("cartCount"),
+        emailBtn: document.getElementById("emailCartBtn"),
+        cartEmpty: document.getElementById("cartEmpty"),
+        clearCartBtn: document.getElementById("clearCartBtn"),
     });
 
-    lines.push("");
-    lines.push("Mijn contactgegevens:");
-    lines.push("- Naam: ");
-    lines.push("- Telefoon: ");
-    lines.push("- Eventuele opmerkingen: ");
-    lines.push("");
-    lines.push("Alvast bedankt!");
+    const uniq = (arr) => [...new Set(arr)].sort((a, b) => a.localeCompare(b));
 
-    return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
-}
+    const setSelectOptions = (select, options, placeholder) => {
+        select.innerHTML = "";
+        const p = document.createElement("option");
+        p.value = "";
+        p.textContent = placeholder;
+        select.appendChild(p);
 
-function renderCart(){
-    const wrap = document.getElementById("cartItems");
-    const countEl = document.getElementById("cartCount");
-    const emailBtn = document.getElementById("emailCartBtn");
-    const emptyEl = document.getElementById("cartEmpty");
+        options.forEach((v) => {
+            const o = document.createElement("option");
+            o.value = v;
+            o.textContent = v;
+            select.appendChild(o);
+        });
+    };
 
-    if(!wrap || !countEl || !emailBtn || !emptyEl) return;
+    // ===== CART =====
+    const buildMailto = () => {
+        const to = "info@cellcityrosmalen.nl";
+        const subject = "Reparatie aanvraag (CellCity Rosmalen)";
 
-    countEl.textContent = String(CART.length);
-    wrap.innerHTML = "";
+        const lines = [
+            "Hallo CellCity,",
+            "",
+            "Ik wil graag een reparatie aanvragen:",
+            "",
+            ...CART.map((it, i) => `${i + 1}. ${it.brand} ${it.model} — ${it.service} (richtprijs ${euro(it.price)})`),
+            "",
+            "Mijn contactgegevens:",
+            "- Naam: ",
+            "- Telefoon: ",
+            "- Eventuele opmerkingen: ",
+            "",
+            "Alvast bedankt!",
+        ];
 
-    if(CART.length === 0){
-        emptyEl.style.display = "block";
-        emailBtn.href = "#";
-        return;
-    }
+        return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
+    };
 
-    emptyEl.style.display = "none";
-    emailBtn.href = buildMailto();
+    const renderCart = () => {
+        const { cartItems, cartCount, emailBtn, cartEmpty } = els();
+        if (!cartItems || !cartCount || !emailBtn || !cartEmpty) return;
 
-    CART.forEach((it, idx) => {
-        const div = document.createElement("div");
-        div.className = "cart-item";
-        div.innerHTML = `
-      <div class="top">
-        <div>
-          <div class="name">${it.brand} ${it.model}</div>
-          <div class="meta">${it.type} • ${it.service}</div>
-          <div class="price">${euro(it.price)}</div>
+        cartCount.textContent = String(CART.length);
+        cartItems.innerHTML = "";
+
+        if (CART.length === 0) {
+            cartEmpty.style.display = "block";
+            emailBtn.href = "#";
+            emailBtn.setAttribute("aria-disabled", "true");
+            return;
+        }
+
+        cartEmpty.style.display = "none";
+        emailBtn.href = buildMailto();
+        emailBtn.setAttribute("aria-disabled", "false");
+
+        CART.forEach((it, idx) => {
+            const div = document.createElement("div");
+            div.className = "cart-item";
+            div.innerHTML = `
+        <div class="top">
+          <div>
+            <div class="name">${it.brand} ${it.model}</div>
+            <div class="meta">${it.type} • ${it.service}</div>
+            <div class="price">${euro(it.price)}</div>
+          </div>
+          <button title="Verwijderen" aria-label="Verwijderen">✕</button>
         </div>
-        <button title="Verwijderen" aria-label="Verwijderen">✕</button>
-      </div>
-    `;
-        div.querySelector("button").addEventListener("click", () => removeFromCart(idx));
-        wrap.appendChild(div);
-    });
-}
-
-function makeRow(device, service, price) {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-    <td>${device.type}</td>
-    <td>${device.brand}</td>
-    <td>${device.model}</td>
-    <td>${service.name}</td>
-    <td><strong>${euro(price)}</strong></td>
-    <td class="muted small">Richtprijs</td>
-    <td></td>
-  `;
-
-    const addBtn = document.createElement("button");
-    addBtn.className = "btn primary small";
-    addBtn.type = "button";
-    addBtn.textContent = "Toevoegen";
-    addBtn.addEventListener("click", () => {
-        addToCart({
-            type: device.type,
-            brand: device.brand,
-            model: device.model,
-            service: service.name,
-            price
-        });
-    });
-
-    tr.lastElementChild.appendChild(addBtn);
-    return tr;
-}
-
-function setSelectOptions(select, options, placeholder){
-    select.innerHTML = "";
-    const p = document.createElement("option");
-    p.value = "";
-    p.textContent = placeholder;
-    select.appendChild(p);
-
-    options.forEach(v => {
-        const o = document.createElement("option");
-        o.value = v;
-        o.textContent = v;
-        select.appendChild(o);
-    });
-}
-
-function uniq(arr){ return [...new Set(arr)].sort((a,b)=>a.localeCompare(b)); }
-
-function initCatalogus() {
-    const data = window.CELLCITY_CATALOGUS;
-    if (!data) return;
-
-    const typeSel = document.getElementById("typeFilter");
-    const brandSel = document.getElementById("brandFilter");
-    const modelSel = document.getElementById("modelFilter");
-    const tbody = document.querySelector("#catalogusTable tbody");
-
-    const pickHint = document.getElementById("pickHint");
-    const resultWrap = document.getElementById("resultWrap");
-
-    const showModelsBtn = document.getElementById("showModelsBtn");
-    const modelPanel = document.getElementById("modelPanel");
-    const modelGrid = document.getElementById("modelGrid");
-    const closeModelsBtn = document.getElementById("closeModelsBtn");
-
-    if(!typeSel || !brandSel || !modelSel || !tbody) return;
-
-    // Type opties
-    setSelectOptions(typeSel, uniq(data.devices.map(d=>d.type)), "Kies type…");
-
-    function resetBrand(){
-        brandSel.disabled = true;
-        setSelectOptions(brandSel, [], "Kies eerst type…");
-    }
-    function resetModel(){
-        modelSel.disabled = true;
-        setSelectOptions(modelSel, [], "Kies eerst type + merk…");
-        showModelsBtn.disabled = true;
-        if(modelPanel) modelPanel.style.display = "none";
-    }
-    function hideResults(){
-        if(pickHint) pickHint.classList.remove("hidden");
-        if(resultWrap) resultWrap.classList.add("hidden");
-        tbody.innerHTML = "";
-    }
-
-    function buildModelsPanel(models){
-        if(!modelGrid) return;
-        modelGrid.innerHTML = "";
-        models.forEach(m=>{
-            const chip = document.createElement("div");
-            chip.className = "model-chip";
-            chip.textContent = m;
-            chip.addEventListener("click", ()=>{
-                modelSel.value = m;
-                modelPanel.style.display = "none";
-                renderForSelection();
+      `;
+            div.querySelector("button").addEventListener("click", () => {
+                CART.splice(idx, 1);
+                renderCart();
             });
-            modelGrid.appendChild(chip);
+            cartItems.appendChild(div);
         });
-    }
+    };
 
-    function renderForSelection(){
-        const type = typeSel.value;
-        const brand = brandSel.value;
-        const model = modelSel.value;
+    const clearCart = () => {
+        CART.length = 0;
+        renderCart();
+    };
 
-        if(!type || !brand || !model){
+    // ===== TABLE ROW =====
+    const makeRow = (device, service, price) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+      <td>${device.type}</td>
+      <td>${device.brand}</td>
+      <td>${device.model}</td>
+      <td>${service.name}</td>
+      <td><strong>${euro(price)}</strong></td>
+      <td class="muted small">Richtprijs</td>
+      <td></td>
+    `;
+
+        const addBtn = document.createElement("button");
+        addBtn.className = "btn primary small";
+        addBtn.type = "button";
+        addBtn.textContent = "Toevoegen";
+        addBtn.addEventListener("click", () => {
+            CART.push({
+                type: device.type,
+                brand: device.brand,
+                model: device.model,
+                service: service.name,
+                price,
+            });
+            renderCart();
+        });
+
+        tr.lastElementChild.appendChild(addBtn);
+        return tr;
+    };
+
+    // ===== INIT =====
+    const initCatalogus = () => {
+        const data = window.CELLCITY_CATALOGUS;
+        if (!data) return;
+
+        const {
+            typeSel, brandSel, modelSel, tbody,
+            pickHint, resultWrap,
+            showModelsBtn, modelPanel, modelGrid, closeModelsBtn,
+            clearCartBtn
+        } = els();
+
+        if (!typeSel || !brandSel || !modelSel || !tbody) return;
+
+        // Start state
+        setSelectOptions(typeSel, uniq(data.devices.map(d => d.type)), "Kies type…");
+        setSelectOptions(brandSel, [], "Kies eerst type…");
+        setSelectOptions(modelSel, [], "Kies eerst type + merk…");
+        brandSel.disabled = true;
+        modelSel.disabled = true;
+        if (showModelsBtn) showModelsBtn.disabled = true;
+
+        const hideResults = () => {
+            if (pickHint) pickHint.classList.remove("hidden");
+            if (resultWrap) resultWrap.classList.add("hidden");
+            tbody.innerHTML = "";
+        };
+
+        const buildModelsPanel = (models) => {
+            if (!modelGrid || !modelPanel) return;
+            modelGrid.innerHTML = "";
+
+            models.forEach((m) => {
+                const chip = document.createElement("div");
+                chip.className = "model-chip";
+                chip.textContent = m;
+                chip.addEventListener("click", () => {
+                    modelSel.value = m;
+                    modelPanel.style.display = "none";
+                    renderForSelection();
+                });
+                modelGrid.appendChild(chip);
+            });
+        };
+
+        const renderForSelection = () => {
+            const type = typeSel.value;
+            const brand = brandSel.value;
+            const model = modelSel.value;
+
+            // sluit panel ook als je via dropdown kiest
+            if (modelPanel) modelPanel.style.display = "none";
+
+            if (!type || !brand || !model) {
+                hideResults();
+                return;
+            }
+
+            const device = data.devices.find(d => d.type === type && d.brand === brand && d.model === model);
+            if (!device) {
+                hideResults();
+                return;
+            }
+
+            tbody.innerHTML = "";
+            data.services.forEach((service) => {
+                const mult = device.multipliers?.[service.id] ?? 1;
+                const price = calcPrice(service.basePrice, mult);
+                tbody.appendChild(makeRow(device, service, price));
+            });
+
+            if (pickHint) pickHint.classList.add("hidden");
+            if (resultWrap) resultWrap.classList.remove("hidden");
+        };
+
+        typeSel.addEventListener("change", () => {
+            const type = typeSel.value;
+
+            brandSel.disabled = true;
+            modelSel.disabled = true;
+
+            setSelectOptions(brandSel, [], "Kies eerst type…");
+            setSelectOptions(modelSel, [], "Kies eerst type + merk…");
             hideResults();
-            return;
+
+            if (showModelsBtn) showModelsBtn.disabled = true;
+            if (modelPanel) modelPanel.style.display = "none";
+
+            if (!type) return;
+
+            const brands = uniq(data.devices.filter(d => d.type === type).map(d => d.brand));
+            brandSel.disabled = false;
+            setSelectOptions(brandSel, brands, "Kies merk…");
+        });
+
+        brandSel.addEventListener("change", () => {
+            const type = typeSel.value;
+            const brand = brandSel.value;
+
+            modelSel.disabled = true;
+            setSelectOptions(modelSel, [], "Kies eerst type + merk…");
+            hideResults();
+
+            if (showModelsBtn) showModelsBtn.disabled = true;
+            if (modelPanel) modelPanel.style.display = "none";
+
+            if (!type || !brand) return;
+
+            const models = uniq(data.devices.filter(d => d.type === type && d.brand === brand).map(d => d.model));
+            modelSel.disabled = false;
+            setSelectOptions(modelSel, models, "Kies model…");
+
+            if (showModelsBtn) showModelsBtn.disabled = false;
+            buildModelsPanel(models);
+        });
+
+        modelSel.addEventListener("change", renderForSelection);
+
+        if (showModelsBtn && modelPanel) {
+            showModelsBtn.addEventListener("click", () => {
+                modelPanel.style.display = modelPanel.style.display === "block" ? "none" : "block";
+            });
         }
 
-        const device = data.devices.find(d => d.type===type && d.brand===brand && d.model===model);
-        if(!device){
-            hideResults();
-            return;
+        if (closeModelsBtn && modelPanel) {
+            closeModelsBtn.addEventListener("click", () => (modelPanel.style.display = "none"));
         }
 
-        tbody.innerHTML = "";
-        data.services.forEach(service=>{
-            const mult = device.multipliers?.[service.id] ?? 1;
-            const price = calcPrice(service.basePrice, mult);
-            tbody.appendChild(makeRow(device, service, price));
-        });
+        clearCartBtn?.addEventListener("click", clearCart);
 
-        if(pickHint) pickHint.classList.add("hidden");
-        if(resultWrap) resultWrap.classList.remove("hidden");
-    }
-
-    // Events
-    typeSel.addEventListener("change", ()=>{
-        const type = typeSel.value;
-        resetBrand();
-        resetModel();
         hideResults();
+        renderCart();
+    };
 
-        if(!type) return;
-
-        const brands = uniq(data.devices.filter(d=>d.type===type).map(d=>d.brand));
-        brandSel.disabled = false;
-        setSelectOptions(brandSel, brands, "Kies merk…");
+    document.addEventListener("DOMContentLoaded", () => {
+        if (document.getElementById("catalogusTable")) initCatalogus();
     });
-
-    brandSel.addEventListener("change", ()=>{
-        const type = typeSel.value;
-        const brand = brandSel.value;
-        resetModel();
-        hideResults();
-
-        if(!type || !brand) return;
-
-        const models = uniq(data.devices.filter(d=>d.type===type && d.brand===brand).map(d=>d.model));
-        modelSel.disabled = false;
-        setSelectOptions(modelSel, models, "Kies model…");
-
-        showModelsBtn.disabled = false;
-        buildModelsPanel(models);
-    });
-
-    modelSel.addEventListener("change", renderForSelection);
-
-    // Model panel toggle
-    if(showModelsBtn && modelPanel){
-        showModelsBtn.addEventListener("click", ()=>{
-            modelPanel.style.display = (modelPanel.style.display === "block") ? "none" : "block";
-        });
-    }
-    if(closeModelsBtn && modelPanel){
-        closeModelsBtn.addEventListener("click", ()=> modelPanel.style.display = "none");
-    }
-
-    document.getElementById("clearCartBtn")?.addEventListener("click", clearCart);
-
-    hideResults();
-    renderCart();
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    if (document.getElementById("catalogusTable")) initCatalogus();
-});
+})();
