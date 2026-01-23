@@ -688,7 +688,7 @@ select option{ background:#ffffff; color:#111111; }
 /* Titel exact in het midden */
 .header-title{
     position: absolute;
-    left: 50%;
+    left: 52%;
     top: 50%;
     transform: translate(-50%, -50%);
     font-weight: 900;
