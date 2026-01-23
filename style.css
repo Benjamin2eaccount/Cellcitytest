@@ -682,3 +682,27 @@ select option{ background:#ffffff; color:#111111; }
     .store-photos-grid{ grid-template-columns: 1fr; }
     .store-photo img{ height: 220px; }
 }
+
+/* ===== HEADER LAYOUT: LOGO LINKS, TITEL PERFECT MIDDEN ===== */
+
+/* Titel exact in het midden */
+.header-title{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 900;
+    font-size: 1.6rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #111;          /* licht thema */
+    white-space: nowrap;
+}
+
+/* Navigatie rechts */
+.nav{
+    position: absolute;
+    right: 2%;
+    top: 50%;
+    transform: translateY(-50%);
+}
