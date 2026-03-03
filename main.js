@@ -1,39 +1,45 @@
 (() => {
-    // Mobiel menu (pak de nav in de header, niet per ongeluk iets anders)
-    const navToggle = document.getElementById("navToggle");
-    const header = document.querySelector(".site-header");
-    const nav = header ? header.querySelector(".nav") : document.querySelector(".nav");
+  // Mobile nav
+  const navToggle = document.getElementById('navToggle');
+  const header    = document.querySelector('.site-header');
+  const nav       = header ? header.querySelector('.nav') : null;
 
-    if (navToggle && nav) {
-        navToggle.setAttribute("aria-expanded", "false");
-        navToggle.addEventListener("click", () => {
-            const isOpen = nav.classList.toggle("open");
-            navToggle.setAttribute("aria-expanded", String(isOpen));
-        });
-    }
+  if (navToggle && nav) {
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(open));
+    });
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!header.contains(e.target)) nav.classList.remove('open');
+    });
+  }
 
-    // Jaar in footer
-    const yearEl = document.getElementById("year");
-    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+  // Year
+  document.querySelectorAll('.js-year').forEach(el => {
+    el.textContent = new Date().getFullYear();
+  });
 
-    // Active nav op basis van bestandsnaam (ook voor / -> index.html)
-    (function setActiveNav() {
-        let file = (location.pathname.split("/").pop() || "").toLowerCase();
-        if (!file || file === "/") file = "index.html";
+  // Active nav link
+  (() => {
+    let file = (location.pathname.split('/').pop() || '').toLowerCase();
+    if (!file || file === '/') file = 'index.html';
+    document.querySelectorAll('.nav-link').forEach(a => {
+      const href = (a.getAttribute('href') || '').toLowerCase();
+      a.classList.toggle('active', href === file);
+    });
+  })();
 
-        document.querySelectorAll(".nav-link").forEach(a => {
-            const href = (a.getAttribute("href") || "").toLowerCase();
-            a.classList.toggle("active", href === file);
-        });
-    })();
-
-    // Contact form demo (zonder inline script)
-    const form = document.getElementById("contactForm");
-    if (form) {
-        form.addEventListener("submit", (e) => {
-            e.preventDefault();
-            alert("Thanks! (demo) — later koppelen we dit aan mail/WhatsApp.");
-            form.reset();
-        });
-    }
+  // Contact form
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('[type=submit]');
+      btn.textContent = 'Verstuurd ✓';
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = 'Versturen'; btn.disabled = false; form.reset(); }, 3000);
+    });
+  }
 })();
